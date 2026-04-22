@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jasmin Chacko — BCBA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --burgundy:       #8B1A2F;
+    --burgundy-deep:  #6B1224;
+    --burgundy-darker:#3D0A16;
+    --burgundy-light: #C4556A;
+    --burgundy-pale:  #E8A0AD;
+    --cream:          #FAF7F2;
+    --blush:          #F5EAE8;
+    --blush-mid:      #EDD8D5;
+    --charcoal:       #1E1A1A;
+    --muted:          #7A6F6F;
+    --white:          #FFFFFF;
+    --hero-dark:      #110509;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 200;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 60px;
+    background: transparent;
+    transition: background 0.4s, box-shadow 0.4s, backdrop-filter 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(250,247,242,0.95);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-weight: 600;
+    color: var(--white); text-decoration: none; transition: color 0.4s;
+  }
+  nav.scrolled .nav-logo { color: var(--charcoal); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 0.76rem; font-weight: 400;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    transition: color 0.3s; position: relative; padding-bottom: 3px;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1.5px; background: var(--burgundy-pale);
+    transition: width 0.25s ease;
+  }
+  nav.scrolled .nav-links a { color: var(--muted); }
+  nav.scrolled .nav-links a::after { background: var(--burgundy); }
+  .nav-links a:hover { color: var(--white); }
+  nav.scrolled .nav-links a:hover { color: var(--burgundy); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  nav.scrolled .nav-links a.active { color: var(--burgundy); }
+  .nav-toggle {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; background: none; border: none; padding: 4px;
+  }
+  .nav-toggle span { display: block; width: 24px; height: 1.5px; background: var(--white); transition: background 0.4s; }
+  nav.scrolled .nav-toggle span { background: var(--charcoal); }
+
+  #hero {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; background: var(--hero-dark);
+  }
+  #neural-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+  .hero-vignette {
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(107,18,36,0.55) 0%, transparent 65%),
+      radial-gradient(ellipse at 50% 0%,   rgba(17,5,9,0.6)    0%, transparent 60%),
+      radial-gradient(ellipse at 0%   50%, rgba(17,5,9,0.4)    0%, transparent 50%),
+      radial-gradient(ellipse at 100% 50%, rgba(17,5,9,0.4)    0%, transparent 50%);
+  }
+  .hero-grain {
+    position: absolute; inset: 0; z-index: 2; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+  .hero-content {
+    position: relative; z-index: 3;
+    text-align: center; padding: 120px 40px 80px; max-width: 800px;
+  }
+  .hero-eyebrow {
+    display: flex; align-items: center; justify-content: center;
+    gap: 14px; margin-bottom: 32px;
+    opacity: 0; animation: fadeUp 1s 0.3s ease forwards;
+  }
+  .eyebrow-line { width: 32px; height: 1px; background: var(--burgundy-pale); opacity: 0.6; flex-shrink: 0; }
+  .eyebrow-text { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--burgundy-pale); font-weight: 500; }
+  .hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 700; line-height: 1.1; color: var(--white); margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 1s 0.55s ease forwards;
+  }
+  .hero-headline em { font-style: italic; font-weight: 400; color: var(--burgundy-pale); }
+  .hero-sub {
+    font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.6);
+    line-height: 1.85; max-width: 480px; margin: 0 auto 48px;
+    opacity: 0; animation: fadeUp 1s 0.75s ease forwards;
+  }
+  .hero-badges {
+    display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 48px;
+    opacity: 0; animation: fadeUp 1s 1.15s ease forwards;
+  }
+  .hero-badge-pill {
+    padding: 6px 16px; border: 1px solid rgba(196,85,106,0.35);
+    border-radius: 100px; font-size: 0.68rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(232,160,173,0.85); font-weight: 400;
+    background: rgba(139,26,47,0.15);
+  }
+  .hero-cta {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 1s 0.95s ease forwards;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeUp 1s 1.4s ease forwards;
+  }
+  .hero-scroll span { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); font-weight: 400; }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+  .hero-bottom-fade { display: none; }
+  @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px;
+    background: var(--burgundy); color: white; font-family: 'DM Sans', sans-serif;
+    font-size: 0.76rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+    text-decoration: none; border-radius: 3px; border: 1px solid var(--burgundy);
+    transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { background: var(--burgundy-deep); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(139,26,47,0.4); }
+  .btn-arrow { transition: transform 0.2s; }
+  .btn-primary:hover .btn-arrow { transform: translateX(5px); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px;
+    background: transparent; color: rgba(255,255,255,0.8); font-family: 'DM Sans', sans-serif;
+    font-size: 0.76rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
+    text-decoration: none; border-radius: 3px; border: 1px solid rgba(255,255,255,0.2);
+    transition: border-color 0.25s, color 0.25s, background 0.25s;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: white; background: rgba(255,255,255,0.05); }
+
+  .section-label { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 18px; }
+  .section-label span { font-size: 0.66rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--burgundy); font-weight: 500; }
+  .section-label::before, .section-label::after { content: ''; height: 1px; width: 20px; background: var(--burgundy-light); opacity: 0.4; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.3rem, 3.5vw, 3.3rem); font-weight: 600; text-align: center; color: var(--charcoal); margin-bottom: 14px; line-height: 1.25; }
+  .section-sub { text-align: center; font-size: 1.05rem; color: var(--muted); font-weight: 300; line-height: 1.8; max-width: 500px; margin: 0 auto 56px; }
+
+  #about { background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; padding: 100px 60px; }
+  .about-image-wrap { position: relative; }
+  .about-image-wrap::before { content: ''; position: absolute; top: 20px; left: -20px; right: 20px; bottom: -20px; border: 1.5px solid var(--blush-mid); border-radius: 8px; z-index: 0; }
+  .about-image { width: 100%; aspect-ratio: 4/5; border-radius: 8px; overflow: hidden; position: relative; z-index: 1; }
+  .about-img-placeholder { width: 100%; height: 100%; background: linear-gradient(150deg, var(--blush) 0%, var(--blush-mid) 60%, #D4ABA7 100%); display: flex; align-items: center; justify-content: center; }
+  .about-img-placeholder span { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--burgundy); opacity: 0.4; letter-spacing: 0.12em; }
+  .about-content .section-label { justify-content: flex-start; }
+  .about-content .section-label::before { display: none; }
+  .about-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 2.5vw, 2.4rem); font-weight: 600; line-height: 1.25; color: var(--charcoal); margin-bottom: 28px; }
+  .about-body { font-size: 0.93rem; color: var(--muted); line-height: 1.9; font-weight: 300; margin-bottom: 16px; }
+  .about-body strong { color: var(--charcoal); font-weight: 500; }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
+  .tag { padding: 7px 15px; background: var(--burgundy); color: white; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 3px; font-weight: 500; }
+
+  #expertise { background: var(--blush); padding: 100px 60px; }
+  .expertise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; max-width: 1080px; margin: 0 auto; }
+  .expertise-card { background: var(--white); border-radius: 8px; padding: 36px 32px; border-left: 3px solid var(--burgundy); transition: transform 0.25s, box-shadow 0.25s; }
+  .expertise-card:hover { transform: translateY(-5px); box-shadow: 0 18px 52px rgba(139,26,47,0.11); }
+  .card-icon { width: 48px; height: 48px; background: var(--blush); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px; }
+  .card-icon svg { width: 22px; height: 22px; stroke: var(--burgundy); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .card-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 600; color: var(--charcoal); margin-bottom: 12px; line-height: 1.3; }
+  .card-body { font-size: 0.86rem; color: var(--muted); line-height: 1.85; font-weight: 300; }
+
+  #blog { background: var(--cream); padding: 100px 60px; }
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; max-width: 1080px; margin: 0 auto; }
+  .blog-card { background: var(--white); border-radius: 8px; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
+  .blog-card:hover { transform: translateY(-5px); box-shadow: 0 18px 52px rgba(0,0,0,0.07); }
+  .blog-card-header { height: 160px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .blog-card:nth-child(1) .blog-card-header { background: linear-gradient(135deg, #F5E6D0, #EDD5B0); }
+  .blog-card:nth-child(2) .blog-card-header { background: linear-gradient(135deg, #D8EDE0, #BFD9CB); }
+  .blog-card:nth-child(3) .blog-card-header { background: linear-gradient(135deg, #DDD8ED, #C8BFE0); }
+  .blog-card-header::before { content: ''; position: absolute; width: 160px; height: 160px; border-radius: 50%; border: 1px solid rgba(139,26,47,0.1); bottom: -60px; right: -40px; }
+  .blog-card-header svg { width: 46px; height: 46px; stroke: var(--burgundy); fill: none; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; position: relative; z-index: 1; opacity: 0.75; }
+  .blog-card-body { padding: 26px 28px 30px; flex: 1; display: flex; flex-direction: column; }
+  .blog-badge { display: inline-block; padding: 4px 10px; background: var(--blush); border-radius: 2px; font-size: 0.63rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--burgundy); font-weight: 500; margin-bottom: 14px; align-self: flex-start; }
+  .blog-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--charcoal); margin-bottom: 11px; line-height: 1.35; }
+  .blog-excerpt { font-size: 0.84rem; color: var(--muted); line-height: 1.8; font-weight: 300; margin-bottom: 20px; flex: 1; }
+  .blog-link { font-size: 0.76rem; color: var(--burgundy); text-decoration: none; font-weight: 500; letter-spacing: 0.06em; display: inline-flex; align-items: center; gap: 6px; transition: gap 0.2s; align-self: flex-start; }
+  .blog-link:hover { gap: 11px; }
+
+  #podcast { background: var(--cream); padding: 100px 60px; text-align: center; position: relative; overflow: hidden; }
+  .podcast-bg { display: none; }
+  .podcast-shape-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+  .podcast-waveform { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-around; gap: 0; z-index: 1; overflow: hidden; padding: 0 8px; }
+  .wave-bar { flex: 1; max-width: 6px; border-radius: 3px; background: rgba(139,26,47,0.35); animation: wave 1.6s ease-in-out infinite; }
+  .wave-bar:nth-child(1)  { height: 15%; animation-delay: 0s; }
+  .wave-bar:nth-child(2)  { height: 28%; animation-delay: 0.08s; }
+  .wave-bar:nth-child(3)  { height: 42%; animation-delay: 0.16s; }
+  .wave-bar:nth-child(4)  { height: 55%; animation-delay: 0.24s; }
+  .wave-bar:nth-child(5)  { height: 35%; animation-delay: 0.32s; }
+  .wave-bar:nth-child(6)  { height: 65%; animation-delay: 0.40s; }
+  .wave-bar:nth-child(7)  { height: 80%; animation-delay: 0.48s; }
+  .wave-bar:nth-child(8)  { height: 50%; animation-delay: 0.56s; }
+  .wave-bar:nth-child(9)  { height: 90%; animation-delay: 0.64s; }
+  .wave-bar:nth-child(10) { height: 70%; animation-delay: 0.72s; }
+  .wave-bar:nth-child(11) { height: 85%; animation-delay: 0.80s; }
+  .wave-bar:nth-child(12) { height: 60%; animation-delay: 0.88s; }
+  .wave-bar:nth-child(13) { height: 95%; animation-delay: 0.96s; }
+  .wave-bar:nth-child(14) { height: 75%; animation-delay: 0.88s; }
+  .wave-bar:nth-child(15) { height: 88%; animation-delay: 0.80s; }
+  .wave-bar:nth-child(16) { height: 62%; animation-delay: 0.72s; }
+  .wave-bar:nth-child(17) { height: 95%; animation-delay: 0.64s; }
+  .wave-bar:nth-child(18) { height: 72%; animation-delay: 0.56s; }
+  .wave-bar:nth-child(19) { height: 82%; animation-delay: 0.48s; }
+  .wave-bar:nth-child(20) { height: 52%; animation-delay: 0.40s; }
+  .wave-bar:nth-child(21) { height: 68%; animation-delay: 0.32s; }
+  .wave-bar:nth-child(22) { height: 38%; animation-delay: 0.24s; }
+  .wave-bar:nth-child(23) { height: 57%; animation-delay: 0.16s; }
+  .wave-bar:nth-child(24) { height: 30%; animation-delay: 0.08s; }
+  .wave-bar:nth-child(25) { height: 18%; animation-delay: 0s; }
+  @keyframes wave { 0%, 100% { opacity: 0.5; transform: scaleY(0.8); } 50% { opacity: 1; transform: scaleY(1.2); } }
+  #podcast .section-label { position: relative; z-index: 1; }
+  #podcast .section-label span { color: var(--burgundy); }
+  #podcast .section-label::before, #podcast .section-label::after { background: var(--burgundy-light); opacity: 0.4; }
+  #podcast .section-title { color: var(--charcoal); position: relative; z-index: 1; }
+  .podcast-sub { font-size: 0.93rem; color: var(--charcoal); font-weight: 400; line-height: 1.8; max-width: 460px; margin: 0 auto 38px; position: relative; z-index: 1; }
+  .btn-outline-white { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border: 1px solid rgba(139,26,47,0.35); color: var(--burgundy); font-family: 'DM Sans', sans-serif; font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; border-radius: 3px; font-weight: 500; transition: background 0.2s, border-color 0.2s; position: relative; z-index: 1; }
+  .btn-outline-white:hover { background: rgba(139,26,47,0.06); border-color: var(--burgundy); }
+
+  #contact { background: var(--cream); padding: 100px 60px; }
+  .contact-inner { max-width: 580px; margin: 0 auto; }
+  .contact-form { background: var(--white); border-radius: 8px; padding: 48px 44px; box-shadow: 0 4px 40px rgba(0,0,0,0.05); }
+  .form-group { margin-bottom: 22px; }
+  .form-label { display: block; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 8px; }
+  .form-input, .form-textarea { width: 100%; padding: 12px 16px; border: 1px solid rgba(0,0,0,0.09); border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 300; color: var(--charcoal); background: var(--cream); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+  .form-input:focus, .form-textarea:focus { border-color: var(--burgundy); box-shadow: 0 0 0 3px rgba(139,26,47,0.07); }
+  .form-textarea { height: 120px; resize: vertical; }
+  .form-submit-wrap { display: flex; justify-content: center; margin-top: 8px; }
+  .btn-submit { padding: 13px 38px; background: var(--burgundy); color: white; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; border: none; border-radius: 3px; cursor: pointer; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-submit:hover { background: var(--burgundy-deep); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(139,26,47,0.22); }
+
+  footer { background: linear-gradient(135deg, var(--burgundy-darker) 0%, var(--burgundy-deep) 50%, var(--burgundy) 100%); padding: 36px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); font-weight: 400; }
+  .footer-links { display: flex; gap: 26px; list-style: none; flex-wrap: wrap; }
+  .footer-links a { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: rgba(255,255,255,0.85); }
+  .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; position: fixed; top: 65px; left: 0; right: 0; background: rgba(17,5,9,0.97); flex-direction: column; align-items: center; gap: 0; padding: 16px 0 24px; border-bottom: 1px solid rgba(139,26,47,0.2); }
+    nav.scrolled .nav-links { background: rgba(250,247,242,0.98); }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; text-align: center; }
+    .nav-links a { display: block; padding: 13px 0; font-size: 0.8rem; }
+    .nav-toggle { display: flex; }
+    .hero-content { padding: 110px 24px 80px; }
+    .hero-headline { font-size: clamp(2.4rem, 8vw, 3.5rem); }
+    #about { grid-template-columns: 1fr; gap: 48px; padding: 72px 24px; }
+    .about-image-wrap::before { display: none; }
+    .about-content .section-label { justify-content: center; }
+    .about-content .section-label::before { display: block; }
+    .about-title, .about-body { text-align: center; }
+    .about-tags { justify-content: center; }
+    #expertise { padding: 72px 24px; }
+    .expertise-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    #blog { padding: 72px 24px; }
+    .blog-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    #podcast, #contact { padding: 72px 24px; }
+    .contact-form { padding: 36px 24px; }
+    footer { flex-direction: column; text-align: center; padding: 32px 24px; gap: 16px; }
+    .footer-links { justify-content: center; }
+  }
+  @media (min-width: 901px) and (max-width: 1100px) {
+    nav { padding: 20px 40px; }
+    #about, #expertise, #blog, #contact { padding: 96px 40px; }
+    footer { padding: 36px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo">Jasmin Chacko</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#podcast">Podcast</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section id="hero">
+  <canvas id="neural-canvas"></canvas>
+  <div class="hero-vignette"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">BCBA &nbsp;·&nbsp; ABA &nbsp;·&nbsp; OBM</span>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h1 class="hero-headline">All behavior<br><em>tells a story.</em></h1>
+    <p class="hero-sub">A BCBA with over a decade spent learning how to listen to what behavior is really saying. Based in the UAE, still just as curious as day one.</p>
+    <div class="hero-badges">
+      <span class="hero-badge-pill">BCBA</span>
+      <span class="hero-badge-pill">OBM Certificate</span>
+      <span class="hero-badge-pill">10+ Years in ABA</span>
+      <span class="hero-badge-pill">UAE-Based</span>
+    </div>
+    <div class="hero-cta" style="margin-top:40px;">
+      <a href="#contact" class="btn-primary">Say Hello <span class="btn-arrow">→</span></a>
+      <a href="#about" class="btn-ghost">Learn More</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+  <div class="hero-bottom-fade"></div>
+</section>
+
+<section id="about">
+  <div class="about-image-wrap reveal">
+    <div class="about-image">
+      <img src="IMG_6032.JPG" alt="Jasmin Chacko" style="width:100%;height:100%;object-fit:cover;object-position:top;" />
+    </div>
+  </div>
+  <div class="about-content reveal">
+    <div class="section-label"><span>About</span></div>
+    <h2 class="about-title">The person behind<br>the practice</h2>
+    <p class="about-body">I didn't just study behavior. I fell into it, stayed for the science, and never left. Over <strong>10 years in ABA</strong> have taught me that the most meaningful progress happens when people feel heard first.</p>
+    <p class="about-body">I earned my <strong>BCBA in December 2021</strong> and hold an <strong>OBM certificate</strong>, which means I think about behavior at every level — from the individual to the organization. In <strong>August 2024</strong>, I moved to the UAE to bring that perspective somewhere new.</p>
+    <p class="about-body">At my core, I believe every person's behavior is worth understanding. That belief shapes everything I do.</p>
+    <div class="about-tags">
+      <span class="tag">BCBA</span>
+      <span class="tag">OBM Certificate</span>
+      <span class="tag">10+ Years in ABA</span>
+      <span class="tag">UAE-Based</span>
+    </div>
+  </div>
+</section>
+
+<section id="expertise">
+  <div class="section-label reveal"><span>Expertise</span></div>
+  <h2 class="section-title reveal">Where the work comes to life</h2>
+  <p class="section-sub reveal">Every setting is different. The thread that connects them all is curiosity, care, and a commitment to what the evidence says.</p>
+  <div class="expertise-grid">
+    <div class="expertise-card reveal">
+      <div class="card-icon" style="background:#E8F5EE;">
+        <svg viewBox="0 0 24 24" style="stroke:#2E7D52;"><path d="M12 22V12"/><path d="M12 12C12 7 7 3 3 3c0 4 3.5 8 9 9"/><path d="M12 12c0-5 5-9 9-9 0 4-3.5 8-9 9"/></svg>
+      </div>
+      <div class="card-title">Early Intervention</div>
+      <p class="card-body">The earliest years shape everything that follows. Working with young learners means meeting them where they are and building from there, gently and intentionally.</p>
+    </div>
+    <div class="expertise-card reveal">
+      <div class="card-icon" style="background:#FDE8EF;">
+        <svg viewBox="0 0 24 24" style="stroke:#C2185B;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="card-title">Parent Training</div>
+      <p class="card-body">Parents know their children best. My role is to give them tools that make sense in real life, not just in a session room.</p>
+    </div>
+    <div class="expertise-card reveal">
+      <div class="card-icon" style="background:#E3F0FC;">
+        <svg viewBox="0 0 24 24" style="stroke:#1565C0;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+      </div>
+      <div class="card-title">Assessments & Programs</div>
+      <p class="card-body">Good programs start with good questions. Every assessment is a chance to look closer and design something that truly fits the person in front of you.</p>
+    </div>
+    <div class="expertise-card reveal">
+      <div class="card-icon" style="background:#FFF3E0;">
+        <svg viewBox="0 0 24 24" style="stroke:#E65100;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><polyline points="22 20 2 20"/></svg>
+      </div>
+      <div class="card-title">Staff Training & OBM</div>
+      <p class="card-body">Behavior doesn't stop at the individual level. Organizations have patterns too — and the right training changes both the culture and the outcomes.</p>
+    </div>
+    <div class="expertise-card reveal">
+      <div class="card-icon" style="background:#F3E8FD;">
+        <svg viewBox="0 0 24 24" style="stroke:#6A1B9A;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      </div>
+      <div class="card-title">Speaking & Workshops</div>
+      <p class="card-body">Some conversations deserve a bigger room. Sharing what this field has taught me — about behavior, people, and why both matter — is something I take seriously.</p>
+    </div>
+    <div class="expertise-card reveal">
+      <div class="card-icon" style="background:#FFFDE7;">
+        <svg viewBox="0 0 24 24" style="stroke:#F57F17;"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/></svg>
+      </div>
+      <div class="card-title">Consultation & Training</div>
+      <p class="card-body">Bringing evidence-based strategies to families, schools, and organizations — translating the science into something people can actually use every day.</p>
+    </div>
+  </div>
+</section>
+
+<section id="blog">
+  <div class="section-label reveal"><span>Blog</span></div>
+  <h2 class="section-title reveal">Things worth thinking about</h2>
+  <p class="section-sub reveal">Notes from the field, honest reflections, and the occasional lesson learned the hard way.</p>
+  <div class="blog-grid">
+    <div class="blog-card reveal">
+      <div class="blog-card-header">
+        <svg viewBox="0 0 24 24" style="stroke:#A0742A;">
+          <circle cx="12" cy="12" r="10"/>
+          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+        </svg>
+      </div>
+      <div class="blog-card-body">
+        <span class="blog-badge">Coming Soon</span>
+        <div class="blog-title">Starting Over in a New Country as a BCBA</div>
+        <p class="blog-excerpt">What it's like to rebuild a career in a place where everything is familiar and nothing is at the same time.</p>
+        <a href="#" class="blog-link">Read more →</a>
+      </div>
+    </div>
+    <div class="blog-card reveal">
+      <div class="blog-card-header">
+        <svg viewBox="0 0 24 24" style="stroke:#2E7D52;">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          <line x1="9" y1="10" x2="15" y2="10"/>
+          <line x1="9" y1="14" x2="13" y2="14"/>
+        </svg>
+      </div>
+      <div class="blog-card-body">
+        <span class="blog-badge">Coming Soon</span>
+        <div class="blog-title">Parent Training That Doesn't Feel Like Homework</div>
+        <p class="blog-excerpt">Why the best caregiver coaching happens when it stops feeling like instruction and starts feeling like a conversation.</p>
+        <a href="#" class="blog-link">Read more →</a>
+      </div>
+    </div>
+    <div class="blog-card reveal">
+      <div class="blog-card-header">
+        <svg viewBox="0 0 24 24" style="stroke:#4A3A8A;">
+          <circle cx="12" cy="5" r="3"/>
+          <circle cx="5" cy="19" r="3"/>
+          <circle cx="19" cy="19" r="3"/>
+          <line x1="12" y1="8" x2="5" y2="16"/>
+          <line x1="12" y1="8" x2="19" y2="16"/>
+          <line x1="5" y1="19" x2="19" y2="19"/>
+        </svg>
+      </div>
+      <div class="blog-card-body">
+        <span class="blog-badge">Coming Soon</span>
+        <div class="blog-title">What OBM Taught Me About People</div>
+        <p class="blog-excerpt">Organizational behavior management sounds corporate. But at its heart, it's still about understanding why people do what they do.</p>
+        <a href="#" class="blog-link">Read more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="podcast">
+  <!-- Waveform cloud shape -->
+  <svg class="podcast-shape-svg" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="waveSmooth" x="-8%" y="-20%" width="116%" height="140%">
+        <feGaussianBlur stdDeviation="16"/>
+      </filter>
+    </defs>
+    <polygon
+      points="0,225 60,225 60,205 120,205 120,185 180,185 180,160 240,160 240,175 300,175 300,140 360,140 360,120 420,120 420,145 480,145 480,100 540,100 540,80 600,80 600,95 660,95 660,70 720,70 780,70 780,95 840,95 840,80 900,80 900,100 960,100 960,145 1020,145 1020,120 1080,120 1080,140 1140,140 1140,175 1200,175 1200,160 1260,160 1260,185 1320,185 1320,205 1380,205 1380,225 1440,225 1440,275 1380,275 1380,295 1320,295 1320,315 1260,315 1260,340 1200,340 1200,325 1140,325 1140,360 1080,360 1080,380 1020,380 1020,355 960,355 960,400 900,400 900,420 840,420 840,405 780,405 780,430 720,430 660,430 660,405 600,405 600,420 540,420 540,400 480,400 480,355 420,355 420,380 360,380 360,360 300,360 300,325 240,325 240,340 180,340 180,315 120,315 120,295 60,295 60,275 0,275"
+      fill="rgba(212,160,170,0.45)"
+      filter="url(#waveSmooth)"
+    />
+  </svg>
+  <!-- Animated bars -->
+  <div class="podcast-waveform">
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+    <div class="wave-bar"></div>
+  </div>
+  <!-- Text content -->
+  <div style="position:relative; z-index:3;">
+    <div class="section-label"><span>Podcast</span></div>
+    <h2 class="section-title">Coming Soon</h2>
+    <p class="podcast-sub">Something new is in the works. Stay tuned for conversations about behavior, people, and the stories behind the science.</p>
+    <a href="#contact" class="btn-outline-white">Get Notified →</a>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label reveal"><span>Contact</span></div>
+  <h2 class="section-title reveal">Let's start a conversation</h2>
+  <p class="section-sub reveal">Whether you have a question, a project, or just want to connect — I'd love to hear from you.</p>
+  <div class="contact-inner reveal">
+    <div class="contact-form">
+      <div class="form-group">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-input" placeholder="Your name"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" placeholder="you@example.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="What's on your mind?"></textarea>
+      </div>
+      <div class="form-submit-wrap">
+        <button class="btn-submit">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Jasmin Chacko</div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#podcast">Podcast</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Jasmin Chacko</div>
+</footer>
+
+<script>
+(function() {
+  const canvas = document.getElementById('neural-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes, mouse = { x: -9999, y: -9999 };
+  const COLORS = { node: 'rgba(196, 85, 106, ', glow: 'rgba(232,160,173, ', line: 'rgba(196, 85, 106, ' };
+  const MAX_DIST = 180;
+  const MOUSE_DIST = 220;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+    init();
+  }
+
+  function init() {
+    const n = Math.floor((W * H) / 14000);
+    nodes = Array.from({ length: n }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 2 + 1.2, phase: Math.random() * Math.PI * 2,
+    }));
+  }
+
+  function draw(ts) {
+    ctx.clearRect(0, 0, W, H);
+    const t = ts * 0.001;
+    nodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+      const mdx = mouse.x - n.x, mdy = mouse.y - n.y;
+      const md = Math.sqrt(mdx * mdx + mdy * mdy);
+      if (md < MOUSE_DIST) {
+        const f = (1 - md / MOUSE_DIST) * 0.012;
+        n.vx += mdx * f; n.vy += mdy * f;
+        const spd = Math.sqrt(n.vx * n.vx + n.vy * n.vy);
+        if (spd > 1.8) { n.vx = n.vx / spd * 1.8; n.vy = n.vy / spd * 1.8; }
+      }
+      const pulse = 0.5 + 0.5 * Math.sin(t * 1.2 + n.phase);
+      const alpha = 0.25 + pulse * 0.55;
+      const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 5);
+      grd.addColorStop(0, COLORS.glow + (alpha * 0.6).toFixed(2) + ')');
+      grd.addColorStop(1, COLORS.glow + '0)');
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.r * 5, 0, Math.PI * 2);
+      ctx.fillStyle = grd; ctx.fill();
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = COLORS.node + alpha.toFixed(2) + ')'; ctx.fill();
+    });
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MAX_DIST) {
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = COLORS.line + ((1 - dist / MAX_DIST) * 0.45).toFixed(3) + ')';
+          ctx.lineWidth = 0.8; ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  document.getElementById('hero').addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+  });
+  document.getElementById('hero').addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+  resize();
+  requestAnimationFrame(draw);
+})();
+
+const mainNav = document.getElementById('main-nav');
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  mainNav.classList.toggle('scrolled', window.scrollY > 80);
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 130) current = s.id; });
+  navLinks.forEach(a => { a.classList.remove('active'); if (a.getAttribute('href') === '#' + current) a.classList.add('active'); });
+});
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 70); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+const navToggle = document.getElementById('nav-toggle');
+const navMenu = document.getElementById('nav-links');
+navToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+</script>
+</body>
+</html>
