@@ -515,11 +515,7 @@
   <p class="section-sub reveal">Whether you have a question, a project, or just want to connect — I'd love to hear from you.</p>
   <div class="contact-inner reveal">
     <div class="contact-form">
-      <form action="https://formsubmit.co/jasmin95626@yahoo.com" method="POST" id="contact-form">
-        <input type="hidden" name="_subject" value="New message from jasminchacko.com"/>
-        <input type="hidden" name="_next" value="https://jasminchacko16-lgtm.github.io/jasminchacko-website/#contact"/>
-        <input type="hidden" name="_captcha" value="false"/>
-        <input type="hidden" name="_template" value="table"/>
+      <form id="contact-form">
         <div class="form-group">
           <label class="form-label">Name</label>
           <input type="text" name="name" class="form-input" placeholder="Your name" required/>
@@ -535,7 +531,13 @@
         <div class="form-submit-wrap">
           <button type="submit" class="btn-submit" id="submit-btn">Send Message →</button>
         </div>
+        <p id="form-error" style="display:none; text-align:center; margin-top:16px; color:var(--burgundy); font-size:0.85rem; font-weight:400;">Something went wrong — please try again or email me directly.</p>
       </form>
+      <div id="form-thankyou" style="display:none; text-align:center; padding: 32px 0;">
+        <div style="font-size:1.5rem; margin-bottom:12px;">✦</div>
+        <p style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:600; color:var(--charcoal); margin-bottom:8px;">Thank you for reaching out.</p>
+        <p style="font-size:0.88rem; color:var(--muted); font-weight:300; line-height:1.7; margin:0;">I've received your message and will be in touch soon.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -646,7 +648,40 @@ const navMenu = document.getElementById('nav-links');
 navToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
 navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
 
-// Contact form — handled by Formsubmit.co (standard POST)
+// Contact form — AJAX via Formsubmit.co
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const errorMsg = document.getElementById('form-error');
+    const thankyou = document.getElementById('form-thankyou');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    errorMsg.style.display = 'none';
+    const formData = new FormData(contactForm);
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/jasmin95626@yahoo.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          message: formData.get('message'),
+          _subject: 'New message from jasminchacko.com'
+        })
+      });
+      if (res.ok) {
+        contactForm.style.display = 'none';
+        thankyou.style.display = 'block';
+      } else { throw new Error(); }
+    } catch {
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+      errorMsg.style.display = 'block';
+    }
+  });
+}
 </script>
 </body>
 </html>
