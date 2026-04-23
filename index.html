@@ -515,9 +515,11 @@
   <p class="section-sub reveal">Whether you have a question, a project, or just want to connect — I'd love to hear from you.</p>
   <div class="contact-inner reveal">
     <div class="contact-form">
-      <form action="https://formspree.io/f/jasmin95626@yahoo.com" method="POST" id="contact-form">
-        <input type="hidden" name="_replyto" value="jasmin95626@yahoo.com"/>
+      <form action="https://formsubmit.co/jasmin95626@yahoo.com" method="POST" id="contact-form">
         <input type="hidden" name="_subject" value="New message from jasminchacko.com"/>
+        <input type="hidden" name="_next" value="https://jasminchacko16-lgtm.github.io/jasminchacko-website/#contact"/>
+        <input type="hidden" name="_captcha" value="false"/>
+        <input type="hidden" name="_template" value="table"/>
         <div class="form-group">
           <label class="form-label">Name</label>
           <input type="text" name="name" class="form-input" placeholder="Your name" required/>
@@ -533,8 +535,6 @@
         <div class="form-submit-wrap">
           <button type="submit" class="btn-submit" id="submit-btn">Send Message →</button>
         </div>
-        <p id="form-success" style="display:none; text-align:center; margin-top:16px; color:#2E7D52; font-size:0.88rem; font-weight:500;">✓ Message sent! I'll be in touch soon.</p>
-        <p id="form-error" style="display:none; text-align:center; margin-top:16px; color:#8B1A2F; font-size:0.88rem; font-weight:500;">Something went wrong. Please try again.</p>
       </form>
     </div>
   </div>
@@ -646,38 +646,7 @@ const navMenu = document.getElementById('nav-links');
 navToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
 navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
 
-// Contact form
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-  contactForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = document.getElementById('submit-btn');
-    const success = document.getElementById('form-success');
-    const error = document.getElementById('form-error');
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
-    try {
-      const res = await fetch(contactForm.action, {
-        method: 'POST',
-        body: new FormData(contactForm),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        contactForm.reset();
-        success.style.display = 'block';
-        error.style.display = 'none';
-        btn.textContent = 'Sent ✓';
-      } else {
-        throw new Error();
-      }
-    } catch {
-      error.style.display = 'block';
-      success.style.display = 'none';
-      btn.textContent = 'Send Message →';
-      btn.disabled = false;
-    }
-  });
-}
+// Contact form — handled by Formsubmit.co (standard POST)
 </script>
 </body>
 </html>
