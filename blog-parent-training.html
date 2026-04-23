@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Parent Training That Doesn't Feel Like Homework — Jasmin Chacko</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --burgundy: #8B1A2F; --burgundy-deep: #6B1224; --burgundy-light: #C4556A;
+    --burgundy-pale: #E8A0AD; --cream: #FAF7F2; --blush: #F5EAE8;
+    --blush-mid: #EDD8D5; --charcoal: #1E1A1A; --muted: #7A6F6F;
+    --white: #FFFFFF; --border: #EDE8E2;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); -webkit-font-smoothing: antialiased; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 60px;
+    background: rgba(250,247,242,0.95);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 600; color: var(--charcoal); text-decoration: none; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-size: 0.76rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--burgundy); }
+  @media (max-width: 768px) { nav { padding: 18px 24px; } .nav-links { display: none; } }
+
+  .article-hero {
+    padding: 160px 5% 80px;
+    background: linear-gradient(135deg, #D8EDE0, #BFD9CB);
+    text-align: center;
+  }
+  .article-tag {
+    display: inline-block; padding: 5px 14px; background: var(--burgundy);
+    color: white; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+    border-radius: 3px; font-weight: 500; margin-bottom: 24px;
+  }
+  .article-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight: 700; line-height: 1.15; color: var(--charcoal);
+    max-width: 760px; margin: 0 auto 24px;
+  }
+  .article-meta { font-size: 0.82rem; color: var(--muted); font-weight: 400; letter-spacing: 0.05em; }
+
+  .article-body {
+    max-width: 720px; margin: 0 auto;
+    padding: 72px 24px 100px;
+  }
+  .article-body p {
+    font-size: 1.05rem; color: var(--muted); line-height: 1.95;
+    font-weight: 300; margin-bottom: 28px;
+  }
+  .article-body p strong { color: var(--charcoal); font-weight: 500; }
+  .article-body h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem; font-weight: 600; color: var(--charcoal);
+    margin: 52px 0 20px; line-height: 1.3;
+  }
+  .article-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-weight: 600; color: var(--charcoal);
+    margin: 36px 0 14px;
+  }
+  .article-body blockquote {
+    border-left: 3px solid var(--burgundy); padding: 16px 28px;
+    margin: 40px 0; background: var(--blush); border-radius: 0 8px 8px 0;
+  }
+  .article-body blockquote p {
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: 1.15rem; color: var(--charcoal); margin: 0;
+  }
+  .article-divider { width: 40px; height: 2px; background: var(--burgundy); opacity: 0.4; margin: 48px 0; }
+
+  .placeholder-box {
+    background: var(--white); border: 2px dashed var(--blush-mid);
+    border-radius: 8px; padding: 40px; text-align: center; margin: 32px 0;
+  }
+  .placeholder-box p { color: var(--burgundy); font-size: 0.88rem; font-weight: 500; margin: 0; opacity: 0.7; }
+
+  .back-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--burgundy); text-decoration: none; font-weight: 500;
+    margin-bottom: 48px; transition: gap 0.2s;
+  }
+  .back-link:hover { gap: 13px; }
+
+  footer { text-align: center; padding: 32px; font-size: 0.78rem; color: var(--muted); border-top: 1px solid var(--border); background: var(--white); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Jasmin Chacko</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#expertise">Expertise</a></li>
+    <li><a href="index.html#blog">Blog</a></li>
+    <li><a href="index.html#podcast">Podcast</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="article-hero">
+  <div class="article-tag">Blog</div>
+  <h1 class="article-title">Parent Training That Doesn't Feel Like Homework</h1>
+  <div class="article-meta">By Jasmin Chacko, BCBA &nbsp;·&nbsp; 2026</div>
+</div>
+
+<div class="article-body">
+  <a href="index.html#blog" class="back-link">← Back to Blog</a>
+
+  <!-- ✦ REPLACE THE PLACEHOLDER BOXES BELOW WITH YOUR WRITING ✦ -->
+
+  <div class="placeholder-box">
+    <p>✦ Your introduction — what does traditional parent training get wrong?</p>
+  </div>
+
+  <h2>Why Caregivers Shut Down</h2>
+
+  <div class="placeholder-box">
+    <p>✦ What happens when parent training feels clinical or overwhelming? Share a real or composite example.</p>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <h2>When It Becomes a Conversation</h2>
+
+  <div class="placeholder-box">
+    <p>✦ Describe what effective caregiver coaching actually looks like in practice. What shifts?</p>
+  </div>
+
+  <blockquote>
+    <p>✦ Add a meaningful quote or insight that captures your approach here.</p>
+  </blockquote>
+
+  <h2>Practical Takeaways</h2>
+
+  <div class="placeholder-box">
+    <p>✦ What are 2–3 things practitioners or parents can do differently to make training feel more human?</p>
+  </div>
+
+  <div class="article-divider"></div>
+
+  <div class="placeholder-box">
+    <p>✦ Closing thoughts — what do you want parents to walk away knowing?</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2026 Jasmin Chacko, BCBA. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

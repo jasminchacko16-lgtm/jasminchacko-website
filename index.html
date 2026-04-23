@@ -211,8 +211,8 @@
   #podcast { background: var(--cream); padding: 100px 60px; text-align: center; position: relative; overflow: hidden; }
   .podcast-bg { display: none; }
   .podcast-shape-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
-  .podcast-waveform { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-around; gap: 0; z-index: 1; overflow: hidden; padding: 0 8px; -webkit-mask-image: radial-gradient(ellipse 65% 100% at center, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.08) 25%, rgba(0,0,0,0.45) 52%, rgba(0,0,0,1) 72%); mask-image: radial-gradient(ellipse 65% 100% at center, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.08) 25%, rgba(0,0,0,0.45) 52%, rgba(0,0,0,1) 72%); }
-  .wave-bar { flex: 1; max-width: 6px; border-radius: 3px; background: rgba(139,26,47,0.18); animation: wave 1.6s ease-in-out infinite; }
+  .podcast-waveform { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-around; gap: 0; z-index: 1; overflow: hidden; padding: 0 8px; -webkit-mask-image: radial-gradient(ellipse 65% 100% at center, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 32%, rgba(0,0,0,0.7) 56%, rgba(0,0,0,1) 65%); mask-image: radial-gradient(ellipse 65% 100% at center, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 32%, rgba(0,0,0,0.7) 56%, rgba(0,0,0,1) 65%); }
+  .wave-bar { flex: 1; max-width: 6px; border-radius: 3px; background: rgba(139,26,47,0.9); animation: wave 1.6s ease-in-out infinite; }
   .wave-bar:nth-child(1)  { height: 15%; animation-delay: 0s; }
   .wave-bar:nth-child(2)  { height: 28%; animation-delay: 0.08s; }
   .wave-bar:nth-child(3)  { height: 42%; animation-delay: 0.16s; }
@@ -432,10 +432,10 @@
         </svg>
       </div>
       <div class="blog-card-body">
-        <span class="blog-badge">Coming Soon</span>
+        <span class="blog-badge">Blog</span>
         <div class="blog-title">Starting Over in a New Country as a BCBA</div>
         <p class="blog-excerpt">What it's like to rebuild a career in a place where everything is familiar and nothing is at the same time.</p>
-        <a href="#" class="blog-link">Read more →</a>
+        <a href="blog-starting-over.html" class="blog-link">Read more →</a>
       </div>
     </div>
     <div class="blog-card reveal">
@@ -447,10 +447,10 @@
         </svg>
       </div>
       <div class="blog-card-body">
-        <span class="blog-badge">Coming Soon</span>
+        <span class="blog-badge">Blog</span>
         <div class="blog-title">Parent Training That Doesn't Feel Like Homework</div>
         <p class="blog-excerpt">Why the best caregiver coaching happens when it stops feeling like instruction and starts feeling like a conversation.</p>
-        <a href="#" class="blog-link">Read more →</a>
+        <a href="blog-parent-training.html" class="blog-link">Read more →</a>
       </div>
     </div>
     <div class="blog-card reveal">
@@ -465,10 +465,10 @@
         </svg>
       </div>
       <div class="blog-card-body">
-        <span class="blog-badge">Coming Soon</span>
+        <span class="blog-badge">Blog</span>
         <div class="blog-title">What OBM Taught Me About People</div>
         <p class="blog-excerpt">Organizational behavior management sounds corporate. But at its heart, it's still about understanding why people do what they do.</p>
-        <a href="#" class="blog-link">Read more →</a>
+        <a href="blog-obm-people.html" class="blog-link">Read more →</a>
       </div>
     </div>
   </div>
@@ -484,7 +484,7 @@
     </defs>
     <polygon
       points="0,225 60,225 60,205 120,205 120,185 180,185 180,160 240,160 240,175 300,175 300,140 360,140 360,120 420,120 420,145 480,145 480,100 540,100 540,80 600,80 600,95 660,95 660,70 720,70 780,70 780,95 840,95 840,80 900,80 900,100 960,100 960,145 1020,145 1020,120 1080,120 1080,140 1140,140 1140,175 1200,175 1200,160 1260,160 1260,185 1320,185 1320,205 1380,205 1380,225 1440,225 1440,275 1380,275 1380,295 1320,295 1320,315 1260,315 1260,340 1200,340 1200,325 1140,325 1140,360 1080,360 1080,380 1020,380 1020,355 960,355 960,400 900,400 900,420 840,420 840,405 780,405 780,430 720,430 660,430 660,405 600,405 600,420 540,420 540,400 480,400 480,355 420,355 420,380 360,380 360,360 300,360 300,325 240,325 240,340 180,340 180,315 120,315 120,295 60,295 60,275 0,275"
-      fill="rgba(212,160,170,0.45)"
+      fill="rgba(212,160,170,0.22)"
       filter="url(#waveSmooth)"
     />
   </svg>
@@ -515,21 +515,27 @@
   <p class="section-sub reveal">Whether you have a question, a project, or just want to connect — I'd love to hear from you.</p>
   <div class="contact-inner reveal">
     <div class="contact-form">
-      <div class="form-group">
-        <label class="form-label">Name</label>
-        <input type="text" class="form-input" placeholder="Your name"/>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-input" placeholder="you@example.com"/>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Message</label>
-        <textarea class="form-textarea" placeholder="What's on your mind?"></textarea>
-      </div>
-      <div class="form-submit-wrap">
-        <button class="btn-submit">Send Message →</button>
-      </div>
+      <form action="https://formspree.io/f/jasmin95626@yahoo.com" method="POST" id="contact-form">
+        <input type="hidden" name="_replyto" value="jasmin95626@yahoo.com"/>
+        <input type="hidden" name="_subject" value="New message from jasminchacko.com"/>
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" name="name" class="form-input" placeholder="Your name" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" name="email" class="form-input" placeholder="you@example.com" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea name="message" class="form-textarea" placeholder="What's on your mind?" required></textarea>
+        </div>
+        <div class="form-submit-wrap">
+          <button type="submit" class="btn-submit" id="submit-btn">Send Message →</button>
+        </div>
+        <p id="form-success" style="display:none; text-align:center; margin-top:16px; color:#2E7D52; font-size:0.88rem; font-weight:500;">✓ Message sent! I'll be in touch soon.</p>
+        <p id="form-error" style="display:none; text-align:center; margin-top:16px; color:#8B1A2F; font-size:0.88rem; font-weight:500;">Something went wrong. Please try again.</p>
+      </form>
     </div>
   </div>
 </section>
@@ -639,6 +645,39 @@ const navToggle = document.getElementById('nav-toggle');
 const navMenu = document.getElementById('nav-links');
 navToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
 navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+// Contact form
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const success = document.getElementById('form-success');
+    const error = document.getElementById('form-error');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        contactForm.reset();
+        success.style.display = 'block';
+        error.style.display = 'none';
+        btn.textContent = 'Sent ✓';
+      } else {
+        throw new Error();
+      }
+    } catch {
+      error.style.display = 'block';
+      success.style.display = 'none';
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+    }
+  });
+}
 </script>
 </body>
 </html>
