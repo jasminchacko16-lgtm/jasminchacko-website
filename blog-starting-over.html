@@ -34,19 +34,22 @@
     padding: 160px 5% 80px;
     background: linear-gradient(135deg, #F0E4E1, #EDD5B0);
     text-align: center;
+    position: relative; overflow: hidden;
   }
   .article-tag {
     display: inline-block; padding: 5px 14px; background: var(--burgundy);
     color: white; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
     border-radius: 3px; font-weight: 500; margin-bottom: 24px;
+    position: relative; z-index: 1;
   }
   .article-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 4.5vw, 3.5rem);
     font-weight: 700; line-height: 1.15; color: var(--charcoal);
     max-width: 760px; margin: 0 auto 24px;
+    position: relative; z-index: 1;
   }
-  .article-meta { font-size: 0.82rem; color: var(--muted); font-weight: 400; letter-spacing: 0.05em; }
+  .article-meta { font-size: 0.82rem; color: var(--muted); font-weight: 400; letter-spacing: 0.05em; position: relative; z-index: 1; }
 
   .article-body {
     max-width: 720px; margin: 0 auto;
@@ -108,6 +111,58 @@
 </nav>
 
 <div class="article-hero">
+
+  <!-- Dubai Skyline Silhouette -->
+  <svg viewBox="0 0 1440 500" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;bottom:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;">
+    <defs>
+      <filter id="skylineBlur">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="1.2"/>
+      </filter>
+    </defs>
+    <path filter="url(#skylineBlur)"
+      fill="rgba(160,100,50,0.09)"
+      stroke="rgba(130,70,20,0.28)"
+      stroke-width="1.5"
+      stroke-linejoin="round"
+      d="M 0,500
+         L 0,445 L 42,445 L 42,425 L 72,425 L 72,405 L 100,405
+         L 100,425 L 122,425 L 122,390 L 150,390 L 150,370 L 175,370
+         L 175,405 L 195,405 L 195,362 L 220,362 L 220,342 L 244,342
+         L 244,322 L 266,322
+         L 266,295 L 273,272 L 280,252 L 285,240 L 290,252 L 297,272 L 304,295
+         L 304,322 L 318,322 L 318,375 L 338,375
+         L 338,295 L 344,268 L 352,244 L 358,228 L 363,218
+         L 368,228 L 374,244 L 382,268 L 388,295
+         L 388,322 L 410,322 L 410,298 L 436,298 L 436,275 L 462,275
+         L 462,255 L 488,255 L 488,235 L 512,235 L 512,215 L 535,215
+         L 535,232 L 555,232 L 555,210 L 578,210 L 578,192 L 600,192
+         L 605,182 L 609,170
+         L 613,158 L 616,145
+         L 618,138 L 620,138 L 622,126 L 625,113
+         L 627,107 L 629,107 L 631,96 L 633,84
+         L 635,79 L 637,79 L 639,68 L 641,57
+         L 643,48 L 645,39 L 647,30 L 649,22 L 651,15 L 653,9 L 655,4 L 657,1
+         L 659,4 L 661,9 L 663,15 L 665,22 L 667,30 L 669,39 L 671,48
+         L 673,57 L 675,68 L 677,79 L 679,79 L 681,84 L 683,96
+         L 685,107 L 687,107 L 689,113 L 691,126 L 693,138 L 695,138
+         L 697,145 L 701,158 L 705,170 L 709,182
+         L 715,192 L 738,192 L 738,210 L 762,210 L 762,232 L 782,232
+         L 782,215 L 808,215 L 808,235 L 832,235 L 832,255 L 858,255
+         L 858,275 L 882,275 L 882,255 L 908,255 L 908,278 L 934,278
+         L 934,300 L 958,300 L 958,278 L 984,278 L 984,308 L 1008,308
+         L 1008,330 L 1032,330 L 1032,355 L 1054,355
+         L 1054,335 L 1073,335 L 1073,355 L 1092,355
+         L 1095,355 L 1095,188 L 1099,170 L 1105,154 L 1112,140
+         L 1120,128 L 1130,119 L 1140,113 L 1150,110
+         L 1160,113 L 1170,120 L 1180,130 L 1188,143
+         L 1195,158 L 1200,176 L 1205,196 L 1210,220
+         L 1215,248 L 1220,280 L 1224,315 L 1228,355
+         L 1252,355 L 1252,375 L 1276,375 L 1276,395 L 1300,395
+         L 1300,375 L 1324,375 L 1324,395 L 1348,395
+         L 1348,415 L 1372,415 L 1372,435 L 1440,435
+         L 1440,500 Z"/>
+  </svg>
+
   <div class="article-tag">Blog</div>
   <h1 class="article-title">Starting Over in a New Country as a BCBA</h1>
   <div class="article-meta">By Jasmin Chacko, BCBA &nbsp;·&nbsp; 2026</div>
