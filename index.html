@@ -182,6 +182,42 @@
   .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
   .tag { padding: 7px 15px; background: transparent; color: var(--burgundy); border: 1.5px solid var(--burgundy); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 3px; font-weight: 500; }
 
+  /* BEHIND THE BEHAVIOR */
+  #behind { background: var(--cream); padding: 100px 60px; }
+  .behind-intro { max-width: 680px; margin: 0 auto 64px; text-align: center; font-size: 1.05rem; color: var(--muted); font-weight: 300; line-height: 1.9; }
+  .behind-intro strong { color: var(--charcoal); font-weight: 500; }
+  .behind-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto 60px; }
+  .behind-card { background: var(--white); border-radius: 8px; padding: 36px; position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
+  .behind-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(139,26,47,0.08); }
+  .behind-number { font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 700; color: var(--burgundy); opacity: 0.07; position: absolute; top: 12px; right: 22px; line-height: 1; }
+  .behind-card-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--charcoal); margin-bottom: 12px; line-height: 1.3; }
+  .behind-card-body { font-size: 0.9rem; color: var(--muted); line-height: 1.85; font-weight: 300; }
+  .behind-disclaimer { max-width: 780px; margin: 0 auto 56px; background: var(--blush); border-left: 3px solid var(--burgundy); border-radius: 0 8px 8px 0; padding: 32px 40px; }
+  .behind-disclaimer-label { font-size: 0.66rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--burgundy); font-weight: 500; margin-bottom: 14px; }
+  .behind-disclaimer p { font-size: 0.97rem; color: var(--charcoal); line-height: 1.9; font-weight: 300; }
+  .behind-disclaimer p strong { font-weight: 500; }
+  .behind-closing { max-width: 580px; margin: 0 auto; text-align: center; }
+  .behind-closing p { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 400; font-style: italic; color: var(--charcoal); line-height: 1.7; }
+  .behind-closing span { color: var(--burgundy); }
+
+  /* BEHAVIOR AT SCALE */
+  #scale { background: var(--white); padding: 100px 60px; }
+  .scale-intro { max-width: 680px; margin: 0 auto 64px; text-align: center; font-size: 1.05rem; color: var(--muted); font-weight: 300; line-height: 1.9; }
+  .scale-intro strong { color: var(--charcoal); font-weight: 500; }
+  .scale-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 900px; margin: 0 auto 60px; }
+  .scale-card { background: var(--cream); border-radius: 8px; padding: 36px; position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
+  .scale-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(139,26,47,0.08); }
+  .scale-number { font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 700; color: var(--burgundy); opacity: 0.07; position: absolute; top: 12px; right: 22px; line-height: 1; }
+  .scale-card-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--charcoal); margin-bottom: 12px; line-height: 1.3; }
+  .scale-card-body { font-size: 0.9rem; color: var(--muted); line-height: 1.85; font-weight: 300; }
+  .scale-disclaimer { max-width: 780px; margin: 0 auto 56px; background: var(--blush); border-left: 3px solid var(--burgundy); border-radius: 0 8px 8px 0; padding: 32px 40px; }
+  .scale-disclaimer-label { font-size: 0.66rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--burgundy); font-weight: 500; margin-bottom: 14px; }
+  .scale-disclaimer p { font-size: 0.97rem; color: var(--charcoal); line-height: 1.9; font-weight: 300; }
+  .scale-disclaimer p strong { font-weight: 500; }
+  .scale-closing { max-width: 580px; margin: 0 auto; text-align: center; }
+  .scale-closing p { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 400; font-style: italic; color: var(--charcoal); line-height: 1.7; }
+  .scale-closing span { color: var(--burgundy); }
+
   #expertise { background: #F5EDEF; padding: 100px 60px; }
   .expertise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; max-width: 1080px; margin: 0 auto; }
   .expertise-card { background: var(--white); border-radius: 8px; padding: 36px 32px; border-left: 3px solid var(--burgundy); transition: transform 0.25s, box-shadow 0.25s; }
@@ -307,7 +343,9 @@
 <nav id="main-nav">
   <a href="#hero" class="nav-logo">Jasmin Chacko</a>
   <ul class="nav-links" id="nav-links">
-    <li><a href="#about">About</a></li>
+    <li><a href="#about">The Listener</a></li>
+    <li><a href="#behind">Behind the Behavior</a></li>
+    <li><a href="#scale">Behavior at Scale</a></li>
     <li><a href="#expertise">Expertise</a></li>
     <li><a href="#blog">Blog</a></li>
     <li><a href="#podcast">Podcast</a></li>
@@ -356,7 +394,7 @@
     </div>
   </div>
   <div class="about-content reveal">
-    <div class="section-label"><span>About</span></div>
+    <div class="section-label"><span>The Listener</span></div>
     <h2 class="about-title">The person behind<br>the practice</h2>
     <p class="about-body">I didn't just study behavior. I fell into it, stayed for the science, and never left. Over <strong>10 years in ABA</strong> have taught me that the most meaningful progress happens when people feel heard first.</p>
     <p class="about-body">I earned my <strong>BCBA in December 2021</strong> and hold an <strong>OBM certificate</strong>, which means I think about behavior at every level — from the individual to the organization. In <strong>August 2024</strong>, I moved to the UAE to bring that perspective somewhere new.</p>
@@ -368,6 +406,86 @@
       <span class="tag">10+ Years in ABA</span>
       <span class="tag">UAE-Based</span>
     </div>
+  </div>
+</section>
+
+<section id="behind">
+  <div class="section-label reveal"><span>Behind the Behavior</span></div>
+  <h2 class="section-title reveal">The science of why people<br>do what they do</h2>
+  <p class="behind-intro reveal">
+    Applied Behavior Analysis — ABA — is the science of behavior. Not a set of drills. Not a compliance program. A <strong>research-backed framework</strong> for understanding why behavior happens and what shapes it. At its core, it asks a simple question: what is this behavior communicating, and what in the environment is influencing it?
+  </p>
+
+  <div class="behind-grid">
+    <div class="behind-card reveal">
+      <div class="behind-number">01</div>
+      <div class="behind-card-title">Behavior is learned</div>
+      <p class="behind-card-body">Most of what we do, we learned somewhere — through experience, repetition, and the responses of the world around us. That means it can be unlearned, reshaped, or built from the ground up. That's not a small thing. That's where real change begins.</p>
+    </div>
+    <div class="behind-card reveal">
+      <div class="behind-number">02</div>
+      <div class="behind-card-title">Context is everything</div>
+      <p class="behind-card-body">No behavior exists in a vacuum. Where someone is, who they're with, what just happened before — it all matters. ABA looks at the whole picture, not just the moment. Understanding context is often the difference between reacting to behavior and actually understanding it.</p>
+    </div>
+    <div class="behind-card reveal">
+      <div class="behind-number">03</div>
+      <div class="behind-card-title">Small steps, real change</div>
+      <p class="behind-card-body">Progress in ABA is intentional, measured, and built one small skill at a time. It isn't dramatic or overnight. But those small, deliberate steps compound — and the result is change that actually lasts, because it was built carefully.</p>
+    </div>
+    <div class="behind-card reveal">
+      <div class="behind-number">04</div>
+      <div class="behind-card-title">We follow the data</div>
+      <p class="behind-card-body">In ABA, we don't guess. We observe, measure, and adjust. Data keeps the work honest and keeps the person at the center. It means every decision is grounded in what is actually happening — not what we assume is happening.</p>
+    </div>
+  </div>
+
+  <div class="behind-disclaimer reveal">
+    <div class="behind-disclaimer-label">A honest note</div>
+    <p>ABA has a complicated history — and that's worth acknowledging. At its worst, it has been rigid, compliance-focused, and disconnected from the person it was meant to serve. <strong>At its best — and at the heart of how I practice it — it is curious, individualized, and deeply human.</strong> The science is sound. What matters is how it's applied, and who is at the center of every decision.</p>
+  </div>
+
+  <div class="behind-closing reveal">
+    <p>That's the version of this science I've committed to.<br><span>One that starts with listening.</span></p>
+  </div>
+</section>
+
+<section id="scale">
+  <div class="section-label reveal"><span>Behavior at Scale</span></div>
+  <h2 class="section-title reveal">When the science meets<br>the whole organization</h2>
+  <p class="scale-intro reveal">
+    Organizational Behavior Management — OBM — takes everything ABA knows about behavior and applies it to a <strong>bigger stage</strong>. Teams, systems, culture, performance. It asks the same foundational question, just in a different setting: what is influencing behavior here, and what needs to change?
+  </p>
+
+  <div class="scale-grid">
+    <div class="scale-card reveal">
+      <div class="scale-number">01</div>
+      <div class="scale-card-title">Organizations are just people</div>
+      <p class="scale-card-body">Strip away the org chart and what you have is people, behaving. OBM treats the organization not as a machine to be optimized but as a collection of human behaviors — shaped by systems, incentives, and the environment around them.</p>
+    </div>
+    <div class="scale-card reveal">
+      <div class="scale-number">02</div>
+      <div class="scale-card-title">Performance is a system</div>
+      <p class="scale-card-body">When someone isn't performing well, it's rarely just about the individual. OBM looks at what the system around them is asking for, rewarding, and allowing. Fix the system and you often fix the problem — without ever having to fix the person.</p>
+    </div>
+    <div class="scale-card reveal">
+      <div class="scale-number">03</div>
+      <div class="scale-card-title">Culture is behavior, repeated</div>
+      <p class="scale-card-body">Culture isn't a poster on a wall. It's the sum of what people actually do, day after day. OBM looks at culture not as a feeling but as a pattern of behavior — which means it can be observed, measured, and meaningfully changed.</p>
+    </div>
+    <div class="scale-card reveal">
+      <div class="scale-number">04</div>
+      <div class="scale-card-title">Data keeps it honest</div>
+      <p class="scale-card-body">In OBM, decisions aren't made on gut feelings or assumptions. We look at what's actually happening — who's doing what, how often, with what result — and we let that data point the way forward, not our best guess.</p>
+    </div>
+  </div>
+
+  <div class="scale-disclaimer reveal">
+    <div class="scale-disclaimer-label">Worth saying out loud</div>
+    <p>OBM can sound cold — metrics, performance, systems. But at its heart, it's still about people. <strong>The goal was never to optimize humans like machines.</strong> It's to understand what the environment is asking of people, and to make sure that environment is actually set up for them to succeed. That distinction matters enormously.</p>
+  </div>
+
+  <div class="scale-closing reveal">
+    <p>Because when the system works for the people in it,<br><span>the people work better together.</span></p>
   </div>
 </section>
 
@@ -554,13 +672,15 @@
 <footer>
   <div class="footer-logo">Jasmin Chacko</div>
   <ul class="footer-links">
-    <li><a href="#about">About</a></li>
+    <li><a href="#about">The Listener</a></li>
+    <li><a href="#behind">Behind the Behavior</a></li>
+    <li><a href="#scale">Behavior at Scale</a></li>
     <li><a href="#expertise">Expertise</a></li>
     <li><a href="#blog">Blog</a></li>
     <li><a href="#podcast">Podcast</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <div class="footer-copy">© 2026 Jasmin Chacko, BCBA. All rights reserved. &nbsp;·&nbsp; <a href="privacy-policy.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Privacy Policy</a> &nbsp;·&nbsp; <a href="disclaimer.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Disclaimer</a></div>
+  <div class="footer-copy">© 2026 Jasmin Chacko, BCBA. All rights reserved.</div>© 2026 Jasmin Chacko, BCBA. All rights reserved. &nbsp;·&nbsp; <a href="privacy-policy.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Privacy Policy</a> &nbsp;·&nbsp; <a href="disclaimer.html" style="color:rgba(255,255,255,0.5);text-decoration:none;">Disclaimer</a></div>
 </footer>
 
 <script>
