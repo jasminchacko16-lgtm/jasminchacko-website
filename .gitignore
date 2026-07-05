@@ -1,0 +1,9 @@
+# macOS junk
+.DS_Store
+
+# Local editor / tooling config
+.claude/
+
+# Local-only helper tools (not part of the public site)
+instagram-post.html
+transition-preview.html
